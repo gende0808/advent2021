@@ -1,5 +1,5 @@
 <?php
-$input = explode("\n", file_get_contents("Day1.txt"));
+$input = explode(PHP_EOL, file_get_contents("Day1.txt"));
 $previousDepth = $input[0];
 $increase = 0;
 foreach ($input as $depth) {
