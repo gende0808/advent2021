@@ -16,4 +16,4 @@ foreach ($input as $movement) {
         $y -= $distance;
     }
 }
-echo $x * $y;
+echo $y;
