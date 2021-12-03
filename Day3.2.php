@@ -53,11 +53,3 @@ function mostOccurring($input, $countFrom)
     }
     return ($one >= $zero) ? "1" : "0";
 }
-
-
-function print_array($array)
-{
-    echo "<pre>";
-    print_r($array);
-    echo "</pre>";
-}

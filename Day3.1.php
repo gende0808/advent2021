@@ -1,6 +1,4 @@
 <?php
-$gamma = "";
-$epsilon = "";
 $input = explode(PHP_EOL, file_get_contents("Day3.txt"));
 $array = array();
 foreach ($input as $line) {
@@ -8,15 +6,10 @@ foreach ($input as $line) {
         $array[$i] .= $line[$i];
     }
 }
-$count = array();
 foreach ($array as $listOfBits) {
- $count = (count_chars($listOfBits));
- if($count[48] > $count[49]){
-     $gamma .= "0";
-     $epsilon .= "1";
- } else{
-     $gamma .= "1";
-     $epsilon .= "0";
- }
+    $bitsArray = str_split($listOfBits);
+    $avg = round(array_sum($bitsArray) / count($bitsArray));
+    $gamma .= $avg;
+    $epsilon .= 1 - $avg;
 }
-echo bindec($gamma) * bindec($epsilon);
+echo bindec($gamma) * bindec($epsilon); 
