@@ -17,8 +17,8 @@ foreach ($drawnNumbers as $drawnNumber) {
     foreach ($listOfCards as $key => $card) {
         foreach ($card as $keyRow => $row) {
             if (array_sum($row) == 0 || array_sum((array_column($card, $keyRow))) == 0) {
-                if(count($listOfCards) == 1){
-                    echo array_sum((call_user_func_array('array_merge', $card))) * $drawnNumber;
+                if(count($listOfCards) == 1 || count($listOfCards) == 100){
+                    echo array_sum((call_user_func_array('array_merge', $card))) * $drawnNumber . "<br>";
                 }
                 unset($listOfCards[$key]);
             }
