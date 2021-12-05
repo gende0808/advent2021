@@ -1,6 +1,5 @@
 <?php
 error_reporting(0);
-include "functions.php";
 $input = explode(PHP_EOL, file_get_contents("Day5.txt"));
 $parsed = array();
 $amount = 0;
