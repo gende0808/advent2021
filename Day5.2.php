@@ -10,7 +10,7 @@ $map = array();
 foreach ($parsed as $coordinates) {
     {
         $steps = max(abs($coordinates[2] - $coordinates[0]), (abs($coordinates[3] - $coordinates[1])));
-        for($i = 0; $i <= $steps; $i++){
+        for ($i = 0; $i <= $steps; $i++) {
             $map[$coordinates[0]][$coordinates[1]] += 1;
             $coordinates[0] += $coordinates[2] <=> $coordinates[0];
             $coordinates[1] += $coordinates[3] <=> $coordinates[1];
