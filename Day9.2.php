@@ -39,4 +39,3 @@ function adjacencyLoop($i, $j, $basinID)
 $values = array_count_values(array_reduce($arraysYay, 'array_merge', array()));
 rsort($values);
 echo $values[1] * $values[2] * $values[3];
-
