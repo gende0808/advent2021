@@ -1,38 +1,51 @@
 <?php
-error_reporting(0);
+
 include "functions.php";
 $input = explode(PHP_EOL, file_get_contents("Day12.txt"));
-$totalarray = (loop(["start" => 0], " bla", ["start" => 1]));
+error_reporting(0);
+$totalarray = loop(["start" => 0], ["start"]);
 print_array($totalarray);
-
-$totalsum = 0;
-array_walk_recursive($totalarray, function (&$value, $key) {
-    if ($key == "en")
-        global $totalsum;
-    $totalsum += 1;
-});
-echo $totalsum;
-function loop($currentnode, $previousnode, $visitednodes)
+function loop($currentnodes, $previousnodes)
 {
-    $layervisited = $visitednodes;
-    $realcurrentNode = key($currentnode);
     global $input;
-    $connectednodes = array();
-    foreach ($input as $line) {
-        if (str_contains($line, $realcurrentNode) && $realcurrentNode != $previousnode) {
-            {
-                $potentialnode = str_replace(["-$realcurrentNode", "$realcurrentNode-"], "", $line);
-                if (preg_match('/[A-Z]/', $potentialnode[0]) || !array_key_exists($potentialnode, $visitednodes)) {
-                    if ($realcurrentNode != "en") {
-                        $visitednodes[$potentialnode] += 1;
-                        $connectednodes[$potentialnode] = 1;
-                        $deep = loop([$potentialnode => 1], $realcurrentNode, $visitednodes);
-                        array_push($connectednodes, $deep);
-                    }
+    $totalArray = array();
+    foreach ($currentnodes as $nodekey => $currentnode) {
+        foreach ($input as $line) {
+            if (str_contains($line, $nodekey)) {
+                $connectednode = str_replace(["-$nodekey", "$nodekey-"], "", $line);
+                if (!in_array($connectednode, $previousnodes) || preg_match('/[A-Z]/', $connectednode[0])) {
+                    $connectednodes[$connectednode] = 1;
+                    $newarray = $previousnodes;
+                    array_push($newarray, $nodekey);
+                    print_array($connectednodes);
+                    $deep = loop2($connectednodes, $newarray);
+                    array_push($connectednodes, $deep);
                 }
             }
         }
+        array_push($totalArray, $connectednodes);
     }
-    
-    return $connectednodes;
+    return $totalArray;
+}
+function loop2($currentnodes, $previousnodes)
+{
+    global $input;
+    $totalArray = array();
+    foreach ($currentnodes as $nodekey => $currentnode) {
+        echo $nodekey;
+        foreach ($input as $line) {
+            if (str_contains($line, $nodekey)) {
+                $connectednode = str_replace(["-$nodekey", "$nodekey-"], "", $line);
+                if (!in_array($connectednode, $previousnodes) || preg_match('/[A-Z]/', $connectednode[0])) {
+                    $connectednodes[$connectednode] = 1;
+                    $newarray = $previousnodes;
+                    array_push($newarray, $nodekey);
+//                    $deep = loop2($connectednodes, $newarray);
+//                    array_push($connectednodes, $deep);
+                }
+            }
+        }
+        array_push($totalArray, $connectednodes);
+    }
+    return $totalArray;
 }
